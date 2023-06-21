@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
 import useDark from "@/hooks/useDark";
 import { AppBar } from "@/components/ui/appbar";
+import { SideMenu } from "@/components/ui/side-menu";
+import { AppDashboardLayout } from "@/components/ui/app-dashboard-layout";
 
 export default function Home() {
   const { toggleDark } = useDark();
@@ -18,20 +20,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center w-screen h-screen bg-background">
-      <AppBar className="w-full" />
-      <Drawer open={open} onClose={handleClose}>
-        <Drawer.Brand>
-          <h1 className="text-2xl font-bold">Brand</h1>
-        </Drawer.Brand>
-        <div className="flex flex-col items-center justify-center w-full h-full">
-          <h1 className="text-2xl font-bold">Hello World</h1>
-        </div>
-      </Drawer>
-      <Button variant={"info"} onClick={handleOpen}>
-        Click me
-      </Button>
-      <Button onClick={toggleDark}>Toggle Dark Mode</Button>
-    </main>
+    <>
+      <h1 className="text-2xl font-bold">Home Page</h1>
+    </>
   );
 }

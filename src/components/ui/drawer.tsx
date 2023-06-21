@@ -32,6 +32,14 @@ const DrawerRoot = React.forwardRef<HTMLDivElement, DrawerProps>(
       }),
     };
 
+    const iconButtonVariants = {
+      hidden: { opacity: 0, x: "-100%" },
+      visible: (open: boolean) => ({
+        opacity: open ? 1 : 0,
+        transform: open ? "translateX(0)" : "translateX(-100%)",
+      }),
+    };
+
     return (
       <AnimatePresence mode="wait">
         <>
@@ -61,11 +69,17 @@ const DrawerRoot = React.forwardRef<HTMLDivElement, DrawerProps>(
             initial="hidden"
             key={"drawer"}
           >
-            <div className="absolute -right-12 top-2">
+            <motion.div
+              className="absolute -right-12 top-2"
+              custom={props.open}
+              variants={iconButtonVariants}
+              animate="visible"
+              initial="hidden"
+            >
               <IconButton onClick={props.onClose}>
                 <XIcon className="w-5 h-5" />
               </IconButton>
-            </div>
+            </motion.div>
             {props.children}
           </motion.div>
         </>
@@ -82,7 +96,7 @@ const Brand = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "flex items-center justify-between p-4 border-b border-border dark:border-border-dark",
+        "flex items-center justify-between h-16 p-4 border-b border-border dark:border-border-dark",
         props.className
       )}
       {...props}

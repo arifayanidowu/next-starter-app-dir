@@ -17,17 +17,18 @@ const iconButtonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         info: "bg-info text-info-foreground hover:bg-info/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost:
+          "bg-transparent hover:bg-accent hover:text-accent-foreground shadow-none border",
         link: "underline-offset-4 hover:underline text-primary",
       },
       size: {
-        default: "w-10 h-10 p-1",
-        sm: "w-9 h-9 p-1",
-        lg: "w-11 h-11 p-1",
+        default: "w-10 h-10",
+        sm: "w-9 h-9",
+        lg: "w-11 h-11",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "ghost",
       size: "default",
     },
   }
