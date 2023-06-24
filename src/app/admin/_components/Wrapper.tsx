@@ -61,8 +61,10 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
                 key={idx}
                 active={pathname.startsWith(item.href)}
               >
-                <SideMenu.NavigationMenuLink href={item.href}>
-                  <item.Icon className="w-6 h-6" />
+                <SideMenu.NavigationMenuLink
+                  href={item.href}
+                  iconleft={<item.Icon className="w-6 h-6" />}
+                >
                   {item.label}
                 </SideMenu.NavigationMenuLink>
               </SideMenu.NavigationMenu>
@@ -156,8 +158,10 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
                 key={idx}
                 active={pathname.startsWith(item.href)}
               >
-                <Drawer.NavigationMenuLink href={item.href}>
-                  <item.Icon className="w-6 h-6" />
+                <Drawer.NavigationMenuLink
+                  href={item.href}
+                  iconleft={<item.Icon className="w-6 h-6" />}
+                >
                   {item.label}
                 </Drawer.NavigationMenuLink>
               </Drawer.NavigationMenu>

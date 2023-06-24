@@ -94,19 +94,37 @@ const Footer = React.forwardRef<
 
 Footer.displayName = "Footer";
 
+interface NavigationMenuLinkProps
+  extends React.ComponentPropsWithoutRef<typeof Link> {
+  iconleft?: React.ReactNode;
+  iconright?: React.ReactNode;
+}
+
 const NavigationMenuLink = React.forwardRef<
   React.ElementRef<typeof Link>,
-  React.ComponentPropsWithoutRef<typeof Link>
+  NavigationMenuLinkProps
 >((props, ref) => {
   return (
     <Link
       ref={ref}
       className={cn(
-        "flex items-center gap-4 w-full  px-4 py-3 text-base font-medium text-left text-gray-800 transition-colors duration-200 dark:text-slate-50 ",
+        "flex items-center gap-4 w-full px-4 py-3 text-base font-medium text-left text-gray-800 transition-colors duration-200 dark:text-slate-50 ",
         props.className
       )}
       {...props}
-    />
+    >
+      {props.iconleft && <div>{props.iconleft}</div>}
+      {props.children}
+      {props.iconright && (
+        <div
+          className={cn(
+            "items-center flex-grow flex-shrink-0 flex justify-end w-4 h-4 text-gray-400 dark:text-slate-600"
+          )}
+        >
+          {props.iconright}
+        </div>
+      )}
+    </Link>
   );
 });
 

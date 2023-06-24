@@ -152,9 +152,15 @@ const NavigationMenu = React.forwardRef<HTMLDivElement, NavigationMenuProps>(
 
 NavigationMenu.displayName = "Drawer.NavigationMenu";
 
+interface NavigationMenuLinkProps
+  extends React.ComponentPropsWithoutRef<typeof Link> {
+  iconleft?: React.ReactNode;
+  iconright?: React.ReactNode;
+}
+
 const NavigationMenuLink = React.forwardRef<
   React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<typeof Link>
+  NavigationMenuLinkProps
 >((props, ref) => {
   // lookup backdrop element
   const backdrop =
@@ -178,7 +184,19 @@ const NavigationMenuLink = React.forwardRef<
         )}
         onClick={handleClick}
         {...props}
-      />
+      >
+        {props.iconleft && <div>{props.iconleft}</div>}
+        {props.children}
+        {props.iconright && (
+          <div
+            className={cn(
+              "items-center flex-grow flex-shrink-0 flex justify-end w-4 h-4 text-gray-400 dark:text-slate-600"
+            )}
+          >
+            {props.iconright}
+          </div>
+        )}
+      </Link>
     </div>
   );
 });
