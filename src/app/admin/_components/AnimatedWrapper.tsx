@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import React from "react";
 
@@ -20,6 +21,7 @@ const AnimatedWrapper = ({ children }: { children: React.ReactNode }) => {
       initial="hidden"
       animate="visible"
       exit="hidden"
+      suppressHydrationWarning={true}
     >
       {children}
     </motion.div>

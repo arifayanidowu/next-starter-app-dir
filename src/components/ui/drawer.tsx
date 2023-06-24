@@ -55,6 +55,7 @@ const DrawerRoot = React.forwardRef<HTMLDivElement, DrawerProps>(
             variants={backdropVariants}
             animate="visible"
             initial="hidden"
+            id="drawer-backdrop"
           />
           <motion.div
             data-state={state}
@@ -68,6 +69,7 @@ const DrawerRoot = React.forwardRef<HTMLDivElement, DrawerProps>(
             animate="visible"
             initial="hidden"
             key={"drawer"}
+            ref={ref}
           >
             <motion.div
               className="absolute -right-12 top-2"
@@ -88,6 +90,8 @@ const DrawerRoot = React.forwardRef<HTMLDivElement, DrawerProps>(
   }
 );
 
+DrawerRoot.displayName = "Drawer";
+
 const Brand = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -106,34 +110,107 @@ const Brand = React.forwardRef<
   );
 });
 
-const NavigationMenuLink = React.forwardRef<
-  React.ElementRef<typeof Link>,
-  React.ComponentPropsWithoutRef<typeof Link>
+Brand.displayName = "Drawer.Brand";
+
+const NavigationMenuContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
   return (
-    <Link
+    <div
+      ref={ref}
+      className={cn("w-full h-full p-4 overflow-y-auto", props.className)}
+      {...props}
+    >
+      {props.children}
+    </div>
+  );
+});
+
+NavigationMenuContent.displayName = "Drawer.NavigationMenuContent";
+
+interface NavigationMenuProps extends React.HTMLAttributes<HTMLDivElement> {
+  active?: boolean;
+}
+
+const NavigationMenu = React.forwardRef<HTMLDivElement, NavigationMenuProps>(
+  ({ active, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "flex flex-col w-full rounded-md overflow-hidden my-2 transition-all hover:bg-gray-100 dark:bg-transparent dark:hover:bg-slate-800/80 hover:text-gray-900 dark:hover:text-slate-100 active:bg-gray-100 dark:active:bg-slate-800/30",
+          active &&
+            "bg-gray-100 dark:bg-slate-800/80 text-gray-900 dark:text-slate-100",
+          props.className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+
+NavigationMenu.displayName = "Drawer.NavigationMenu";
+
+const NavigationMenuLink = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<typeof Link>
+>((props, ref) => {
+  // lookup backdrop element
+  const backdrop =
+    typeof window !== "undefined"
+      ? window.document.getElementById("drawer-backdrop")
+      : null;
+  // close drawer on link click
+  function handleClick() {
+    if (backdrop) {
+      backdrop.click();
+    }
+  }
+
+  return (
+    <div>
+      <Link
+        ref={ref}
+        className={cn(
+          "flex items-center gap-4 w-full px-4 py-3 text-base font-medium text-left text-gray-800 transition-colors duration-200 dark:text-slate-50 ",
+          props.className
+        )}
+        onClick={handleClick}
+        {...props}
+      />
+    </div>
+  );
+});
+
+NavigationMenuLink.displayName = "Drawer.NavigationMenuLink";
+
+const Footer = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>((props, ref) => {
+  return (
+    <div
       ref={ref}
       className={cn(
-        "flex items-center justify-between w-full px-4 py-2 text-base font-medium text-left text-gray-700 transition-colors duration-200 border-b border-border dark:border-border-dark hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-slate-100",
+        "flex items-center absolute bottom-0 w-full justify-between px-5 h-[4.4rem] border-t border-border dark:border-border-dark",
         props.className
       )}
       {...props}
     >
       {props.children}
-    </Link>
+    </div>
   );
 });
 
+Footer.displayName = "Drawer.Footer";
+
 const Drawer = Object.assign(DrawerRoot, {
   Brand,
-  // Trigger: NavigationMenuTrigger,
-  // Content: NavigationMenuContent,
-  // Item: NavigationMenuItem,
-  // List: NavigationMenuList,
-  // Viewport: NavigationMenuViewport,
-  Link: NavigationMenuLink,
+  Content: NavigationMenuContent,
+  NavigationMenu,
+  NavigationMenuLink: NavigationMenuLink,
+  Footer,
 });
-
-Drawer.displayName = "Drawer";
 
 export { Drawer };

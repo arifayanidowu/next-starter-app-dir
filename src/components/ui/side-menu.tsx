@@ -49,7 +49,7 @@ const Brand = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "flex items-center justify-between p-4 h-16 border-b border-border dark:border-border-dark",
+        "flex items-center justify-between px-5 h-[4.4rem] border-b border-border dark:border-border-dark",
         props.className
       )}
       {...props}
@@ -65,8 +65,34 @@ const Content = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
-  return <div ref={ref} className={cn("p-4", props.className)} {...props} />;
+  return (
+    <div
+      ref={ref}
+      className={cn("p-4 overflow-y-scroll h-screen", props.className)}
+      {...props}
+    />
+  );
 });
+
+const Footer = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>((props, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "flex items-center absolute bottom-0 w-full justify-between px-5 h-[4.4rem] border-t border-border dark:border-border-dark",
+        props.className
+      )}
+      {...props}
+    >
+      {props.children}
+    </div>
+  );
+});
+
+Footer.displayName = "Footer";
 
 const NavigationMenuLink = React.forwardRef<
   React.ElementRef<typeof Link>,
@@ -76,7 +102,7 @@ const NavigationMenuLink = React.forwardRef<
     <Link
       ref={ref}
       className={cn(
-        "flex items-center gap-4 w-full px-4 py-3 text-base font-medium text-left text-gray-800 transition-colors duration-200 dark:text-slate-50 ",
+        "flex items-center gap-4 w-full  px-4 py-3 text-base font-medium text-left text-gray-800 transition-colors duration-200 dark:text-slate-50 ",
         props.className
       )}
       {...props}
@@ -114,6 +140,7 @@ const SideMenu = Object.assign(SideMenuRoot, {
   NavigationMenu,
   NavigationMenuLink,
   Content,
+  Footer,
 });
 
 export { SideMenu };

@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import { Barlow_Condensed } from "next/font/google";
-import { cookies } from "next/headers";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 const barlow = Barlow_Condensed({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -18,13 +18,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const theme = cookies().get("dark")?.value;
-
   return (
-    <html lang="en" className={theme ? "dark" : ""}>
+    <html lang="en" suppressHydrationWarning>
       <body className={barlow.className}>
-        {children}
-        <Toaster />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

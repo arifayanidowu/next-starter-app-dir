@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const iconButtonVariants = cva(
-  "inline-flex items-center justify-center text-gray-400 dark:text-gray-50 transition-colors duration-200 rounded-full hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-slate-800 dark:hover:text-slate-300 shadow-md",
+  "inline-flex items-center justify-center text-gray-400 dark:text-gray-50 transition-colors duration-200 rounded-full hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-slate-800 dark:hover:text-slate-300 shadow-md focus:ring-1 focus:ring-offset-2 focus:ring-offset-slate-100 focus:ring-slate-500 hover:ring-offset-2 focus:outline-none",
   {
     variants: {
       variant: {
@@ -18,7 +18,7 @@ const iconButtonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         info: "bg-info text-info-foreground hover:bg-info/80",
         ghost:
-          "bg-transparent hover:bg-accent hover:text-accent-foreground shadow-none border",
+          "bg-transparent hover:bg-accent hover:text-accent-foreground shadow-none border border-border dark:border-border-dark",
         link: "underline-offset-4 hover:underline text-primary",
       },
       size: {

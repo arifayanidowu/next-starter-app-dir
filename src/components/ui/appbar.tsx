@@ -7,7 +7,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 
 const appBarVariants = cva(
-  "flex fixed w-full md:w-[calc(100%-300px)] backdrop-blur-sm top-0 items-center justify-between h-16 px-1 border-b border-border dark:border-border-dark",
+  "flex fixed w-full md:w-[calc(100%-300px)] backdrop-blur-sm top-0 items-center justify-between h-16 md:px-0 px-1 border-b border-border dark:border-border-dark",
   {
     variants: {
       variant: {
@@ -69,11 +69,12 @@ const Avatar = React.forwardRef<React.ElementRef<typeof Image>, AvatarProps>(
       <Comp
         ref={ref}
         className={cn(
-          "flex items-center justify-center w-10 h-10 rounded-full object-center object-cover bg-gray-300",
+          "flex items-center justify-center w-10 h-10 aspect-w-10 rounded-full object-center object-cover bg-gray-300",
           props.className
         )}
-        width={40}
-        height={40}
+        width={50}
+        height={50}
+        priority
         {...props}
       />
     );
